@@ -18,37 +18,37 @@ env:
   POSTMAN_TEST_FILE_PATH: test/postman
 
 jobs:
-#  release_charts:
-#    runs-on: ubuntu-latest
+  release_charts:
+    runs-on: ubuntu-latest
 
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        with:
-#          fetch-depth: 0
-#
-#      - name: Configure Git
-#        run: |
-#          git config user.name "$GITHUB_ACTOR"
-#          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-#
-#      - name: Install Helm
-#        uses: azure/setup-helm@v1
-#        with:
-#          version: v3.4.0
-#
-#      - name: Installing repositories
-#        run: |
-#          helm repo add helm-charts https://kubeshop.github.io/helm-charts
-#          helm repo add bitnami https://charts.bitnami.com/bitnami
-#
-#      - name: Run chart-releaser
-#        uses: helm/chart-releaser-action@v1.2.1
-#        with:
-#          charts_dir: charts
-#        env:
-#          CR_TOKEN: "${{ secrets.DEVOPS_GITHUB_TOKEN }}"
-#          CR_SKIP_EXISTING: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - name: Installing repositories
+        run: |
+          helm repo add helm-charts https://kubeshop.github.io/helm-charts
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.4.0
+        with:
+          charts_dir: charts
+        env:
+          CR_TOKEN: "${{ secrets.CI_BOT_TOKEN }}"
+          CR_SKIP_EXISTING: true
 
 #  notify_slack_if_helm_chart_release_fails:
 #    runs-on: ubuntu-latest
