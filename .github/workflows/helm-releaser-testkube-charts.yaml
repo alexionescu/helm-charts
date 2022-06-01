@@ -188,9 +188,8 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |-
-          helm repo update helm-charts
-          helm template testkube ./charts/testkube --namespace testkube  --values ./charts/testkube/values-demo.yaml
-        #  helm upgrade --install --atomic --timeout 180s testkube helm-charts/testkube --namespace testkube --create-namespace --values ./charts/testkube/values-demo.yaml --debug --set testkube-api.cliIngress.oauth.clientID=${{ secrets.TESTKUBE_DEMO_OAUTH_CLIENT_ID }} --set testkube-api.cliIngress.oauth.clientSecret=${{ secrets.TESTKUBE_DEMO_OAUTH_CLIENT_SECRET }}
+        #  helm template testkube ./charts/testkube --namespace testkube  --values ./charts/testkube/values-demo.yaml
+          helm template testkube ./charts/testkube --namespace testkube --create-namespace --values ./charts/testkube/values-demo.yaml --debug --set testkube-api.cliIngress.oauth.clientID=${{ secrets.TESTKUBE_DEMO_OAUTH_CLIENT_ID }} --set testkube-api.cliIngress.oauth.clientSecret=${{ secrets.TESTKUBE_DEMO_OAUTH_CLIENT_SECRET }}
 
 #  notify_slack_if_deploy_dev_succeeds:
 #    runs-on: ubuntu-latest
